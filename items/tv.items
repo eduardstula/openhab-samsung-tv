@@ -1,0 +1,10 @@
+String ChromecastPlay    "Play uri" {channel="chromecast:chromecast:XXX:playuri"}
+String SamsungTV_KeyCode "Key code" {channel="samsungtv:tv:XXX:keyCode"}
+String SamsungTV_Power   "Power"    {channel="samsungtv:tv:XXX:power"}
+Switch SamsungTVState
+
+
+
+
+
+

@@ -1,0 +1,30 @@
+var Timer timer = null
+
+rule "Samsung TV ON"
+when
+    Item SamsungTVState received update ON
+then
+    ChromecastPlay.sendCommand("http://localhost:8080/static/silent.mp3")
+    if (timer === null) {
+            timer = createTimer(now.plusSeconds(60), [ |
+                timer.cancel
+                timer = null
+            ])
+        }
+end
+
+rule "Set TV after turn ON"
+when
+    Thing "samsungtv:tv:XXX" changed from OFFLINE to ONLINE
+then
+    if(timer !== null) {
+        SamsungTV_KeyCode.sendCommand("KEY_TV")
+    }
+end
+
+rule "Samsung TV OFF"
+when
+    Item SamsungTVState received update OFF
+then
+    SamsungTV_Power.sendCommand("OFF")
+end
